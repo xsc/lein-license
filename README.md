@@ -5,7 +5,7 @@ management, i.e. mainly for setting or updating a project's license information
 in:
 
 - the `LICENSE` file,
-- the `README` file,
+- the `README`,
 - as well as the `project.clj`.
 
 It uses the data provided by [choosealicense.com][choosealicense] to generate
@@ -110,7 +110,7 @@ This will print the license text to your console.
 ## License Data
 
 You can add some additional information to the `:license` map in your
-`project.clj` which will be preserved in updated and used for rendering the
+`project.clj` which will be preserved in updates and used for rendering the
 license:
 
 ```clojure

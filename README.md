@@ -8,9 +8,17 @@ in:
 - the `README`,
 - as well as the `project.clj`.
 
-It uses the data provided by [choosealicense.com][choosealicense] to generate
-the license text. Make sure to visit that page if you're unsure (or never
-thought of) which license suits your project best!
+__Use cases__ thus include:
+
+- setting the initial license for your Leiningen project if the EPL does not fit
+  your needs,
+- automatically updating e.g. authors, emails and copyright notices in your
+  license files,
+- as well as completely and seamlessly switching between licenses.
+
+It utilises the data provided by [choosealicense.com][choosealicense] to
+generate the license text. Make sure to visit that page if you're unsure (or
+never thought of) which license suits your project best!
 
 [leiningen]: https://github.com/technomancy/leiningen
 [choosealicense]: http://choosealicense.com/

@@ -10,7 +10,7 @@
   [values]
   (let [{:keys [name email year]} (copyright-data values)]
     (when name
-      (str "&copy; " year " " name))))
+      (str "Copyright &copy; " year " " name))))
 
 (defn- license-info-markdown
   [{:keys [title source]} values]

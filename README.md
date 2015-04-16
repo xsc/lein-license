@@ -131,6 +131,8 @@ license:
 (if given) will cause the copyright notice to contain e.g. `2013-2015` instead
 of just the current one.
 
+You can, of course, also set this information in your global `:user` profile.
+
 ## Git Integration
 
 If you're using Git and the configuration values `user.name` and `user.email`

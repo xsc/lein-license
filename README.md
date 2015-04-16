@@ -131,7 +131,7 @@ email address.
 
 ## License
 
-&copy; 2015 Yannick Scherer
+Copyright &copy; 2015 Yannick Scherer
 
 This project is licensed under the [MIT License][license].
 

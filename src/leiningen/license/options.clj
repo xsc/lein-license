@@ -15,7 +15,7 @@
   [{:keys [license] :as project}]
   (merge
     (select-keys project [:description])
-    (select-keys license [:author :email :project])))
+    (select-keys license [:author :email :project :username :year])))
 
 (defn- parse-raw-options
   [args]

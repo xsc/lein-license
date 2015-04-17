@@ -34,41 +34,11 @@ Add the following to your `:user` profile's  `:plugins` vector in
 
 ## Usage
 
-### List Licenses
-
-To list all licenses provided by [choosealicense.com][choosealicense] and thus
-this plugin, run:
-
-```
-lein license list
-```
-
-You can also filter using a prefix, e.g.:
-
-```
-lein license list gpl
-```
-
-The resulting output will look like the following:
-
-```
-  2 License(s) found:
-
-      gpl-2.0          (http://choosealicense.com/licenses/gpl-2.0)
-      gpl-3.0          (http://choosealicense.com/licenses/gpl-3.0)
-
-  Visit http://choosealicense.com for a comprehensive overview
-  and comparison of these licenses.
-```
-
-Note that the license list is cached in `$LEIN_HOME/.licenses.edn` to prevent
-hitting of the rate limit set by Github's API (which is used to retrieve the
-license list from the repository `github/choosealicense.com`).
-
 ### Set &amp; Update a License
 
-After you've decided on which license to use, backup your changes (you never
-know) and pass the license identifier to the `update` task, e.g.:
+After you've decided on which license to use ([see below](#list-licenses)),
+backup your changes (you never know) and pass the license identifier to the
+`update` task, e.g.:
 
 ```
 lein license update mit
@@ -103,6 +73,37 @@ For `README` updates, note the following:
 In the `project.clj` a `:license` map will either be inserted or updated. Note
 that a `:key` value will be added for lein-license to be able to identify the
 current license.
+
+### List Licenses
+
+To list all licenses provided by [choosealicense.com][choosealicense] and thus
+this plugin, run:
+
+```
+lein license list
+```
+
+You can also filter using a prefix, e.g.:
+
+```
+lein license list gpl
+```
+
+The resulting output will look like the following:
+
+```
+  2 License(s) found:
+
+      gpl-2.0          (http://choosealicense.com/licenses/gpl-2.0)
+      gpl-3.0          (http://choosealicense.com/licenses/gpl-3.0)
+
+  Visit http://choosealicense.com for a comprehensive overview
+  and comparison of these licenses.
+```
+
+Note that the license list is cached in `$LEIN_HOME/.licenses.edn` to prevent
+hitting of the rate limit set by Github's API (which is used to retrieve the
+license list from the repository `github/choosealicense.com`).
 
 ### Preview/Render a License
 

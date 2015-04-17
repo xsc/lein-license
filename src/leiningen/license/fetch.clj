@@ -57,6 +57,10 @@
         (catch Exception ex
           {:error (.getMessage ex)})))))
 
+(defn- normalize-template
+  [^String s]
+  (string/replace s #"(^[\n\r]+|[\n\r]+$)" ""))
+
 (defn- parse-license
   "Parse raw license data, returning a map of either `:error` or the
    desired data."
@@ -66,7 +70,7 @@
       (if error
         {:error error}
         (assoc value
-               :text (string/trim template)
+               :text (normalize-template template)
                :key  license-key)))))
 
 ;; ## License I/O

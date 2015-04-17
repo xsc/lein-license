@@ -27,7 +27,7 @@
       (when source
         (str "\n\n[license]: " source)))))
 
-(defn license-and-copyright-markdown
+(defn- license-and-copyright-markdown
   [license values]
   (->> (vector
          (copyright-markdown values)

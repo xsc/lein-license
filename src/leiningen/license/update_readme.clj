@@ -42,9 +42,14 @@
         (copyright-markdown values)
 
         (< (count text) 1280)
-        (format "%s%n%n```%n%s%n```"
-                (license-and-copyright-markdown license values)
-                (render-license license values))
+        (str
+          (when (neg? (.indexOf text "[fullname]"))
+            (str
+              (license-and-copyright-markdown license values)
+              "\n\n"))
+          "```\n"
+          (render-license license values)
+          "\n```")
 
         :else
         (license-and-copyright-markdown license values)))

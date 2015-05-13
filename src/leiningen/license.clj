@@ -73,7 +73,7 @@
 ;; ## Entry Point
 
 (defn ^:no-project-needed ^{:subtasks [#'list #'render #'update]} license
-  "Change the license of the current project."
+  "project-level license management."
   [project & args]
   (if-let [[task & rst] (seq args)]
     (case task

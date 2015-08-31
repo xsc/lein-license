@@ -37,7 +37,7 @@
   "Parse a YAML string into a map. Returns a map with either the single key
    `:value` or `:error`."
   (let [yaml (Yaml.)]
-    (fn [^String data]
+    (fn [^String data license-key]
       (try
         (if-let [value (.load yaml data)]
           (if (or (map? value) (instance? java.util.LinkedHashMap value))
@@ -47,7 +47,8 @@
                                   (mapv keyword v)
                                   v)]]
                    [(keyword s) v'])
-                 (into {})
+                 (into
+                   {:permalink (format "/_licenses/%s.txt" license-key)})
                  (ensure-required-keys)
                  (hash-map :value))
             {:error "YAML value does not represent a map."})
@@ -66,7 +67,7 @@
    desired data."
   [^String data license-key]
   (when-let [[_ info template] (re-find license-regex data)]
-    (let [{:keys [value error]} (parse-license-yaml info)]
+    (let [{:keys [value error]} (parse-license-yaml info license-key)]
       (if error
         {:error error}
         (assoc value

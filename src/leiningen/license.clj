@@ -60,10 +60,10 @@
     (if (seq matches)
       (main/info (format "%n  %d License(s) found:%n" (count matches)))
       (main/info "No Licenses found."))
-    (doseq [license-name matches]
-      (main/info (format "      %-16s (http://choosealicense.com/licenses/%s)"
-                         license-name
-                         license-name)))
+    (let [longest (apply max (map count matches))
+          fmt (str "      %-" longest "s (http://choosealicense.com/licenses/%s)")]
+      (doseq [license-name matches]
+        (main/info (format fmt license-name license-name))))
     (when (seq matches)
       (main/info)
       (main/info "  Visit http://choosealicense.com for a comprehensive overview")

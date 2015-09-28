@@ -6,6 +6,7 @@
             :key "mit"
             :year 2015}
   :dependencies [[org.yaml/snakeyaml "1.15"]
-                 [rewrite-clj "0.4.12"]]
+                 [rewrite-clj "0.4.12"
+                  :exclusions [org.clojure/clojure]]]
   :eval-in :leiningen
   :pedantic? :abort)

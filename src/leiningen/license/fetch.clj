@@ -16,7 +16,7 @@
   (let [s (-> (name license-key)
               (string/replace #"\s+|_" "-")
               (string/lower-case))]
-    (str *raw-prefix* s ".txt")))
+    (str *raw-prefix* s ".html")))
 
 ;; ## Parser
 

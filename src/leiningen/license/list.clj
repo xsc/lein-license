@@ -30,7 +30,8 @@
     (or (try
           (when (some-> delta (< 3600000))
             (binding [*read-eval* false]
-              (read-string (slurp cache-file :encoding "UTF-8"))))
+              (when-let [result (seq (read-string (slurp cache-file :encoding "UTF-8")))]
+                result)))
           (catch Exception _
             (main/warn "could not read local license cache.")))
         (let [licenses (query-licenses!)]

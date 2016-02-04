@@ -14,8 +14,9 @@
            (json/parse-string keyword))
        (keep
          (fn [{:keys [^String name]}]
-           (when (and name (.endsWith name ".txt"))
-             (subs name 0 (- (count name) 4)))))))
+           (when name
+             (when-let [[_ license-name] (re-matches #"(.+)\.(txt|html)" name)]
+               license-name))))))
 
 ;; ## License List
 

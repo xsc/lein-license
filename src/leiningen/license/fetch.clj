@@ -1,5 +1,6 @@
 (ns leiningen.license.fetch
   (:require [leiningen.license.list :refer [match-licenses]]
+            [leiningen.core.main :as main]
             [clojure.string :as string])
   (:import [org.yaml.snakeyaml Yaml]
            [org.yaml.snakeyaml.scanner ScannerException]))
@@ -78,16 +79,20 @@
 
 (defn fetch-license!
   "Fetch license data from the `github/choosealicense.com` repository."
-  [license-key]
-  (try
-    (-> (raw-url license-key)
-        (slurp :encoding "UTF-8")
-        (parse-license license-key))
-    (catch java.io.FileNotFoundException ex
-      (if-let [matches (seq (match-licenses (name license-key)))]
-        (if (next matches)
-          {:error (str "No such License. Did you mean: "
-                       (string/join ", " matches)
-                       "?")}
-          (fetch-license! (first matches)))
-        {:error "No such License."}))))
+  [license-key & [seen]]
+  (if-not (contains? seen license-key)
+    (try
+      (let [url (raw-url license-key)]
+        (main/debug "reading raw license data from:" url)
+        (-> url
+            (slurp :encoding "UTF-8")
+            (parse-license license-key)))
+      (catch java.io.FileNotFoundException ex
+        (if-let [matches (seq (match-licenses (name license-key)))]
+          (if (next matches)
+            {:error (str "No such License. Did you mean: "
+                         (string/join ", " matches)
+                         "?")}
+            (fetch-license! (first matches) (conj (set seen) license-key)))
+          {:error "No such License."})))
+    {:error "Could not load License."}))

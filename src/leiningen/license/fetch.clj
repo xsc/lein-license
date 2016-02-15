@@ -10,13 +10,15 @@
 (def ^:dynamic *raw-prefix*
   "https://raw.githubusercontent.com/github/choosealicense.com/gh-pages/_licenses/")
 
-(defn- raw-url
+(defn- raw-urls
   "Generate URL to raw license data."
   [license-key]
   (let [s (-> (name license-key)
               (string/replace #"\s+|_" "-")
               (string/lower-case))]
-    (str *raw-prefix* s ".html")))
+    (vector
+      (str *raw-prefix* s ".txt")
+      (str *raw-prefix* s ".html"))))
 
 ;; ## Parser
 
@@ -81,18 +83,19 @@
   "Fetch license data from the `github/choosealicense.com` repository."
   [license-key & [seen]]
   (if-not (contains? seen license-key)
-    (try
-      (let [url (raw-url license-key)]
-        (main/debug "reading raw license data from:" url)
-        (-> url
-            (slurp :encoding "UTF-8")
-            (parse-license license-key)))
-      (catch java.io.FileNotFoundException ex
+    (or (let [urls (raw-urls license-key)]
+          (main/debug "reading raw license data from:" urls)
+          (some-> (some
+                    #(try
+                       (slurp % :encoding "UTF-8")
+                       (catch java.io.FileNotFoundException _))
+                    urls)
+                  (parse-license license-key)))
         (if-let [matches (seq (match-licenses (name license-key)))]
           (if (next matches)
             {:error (str "No such License. Did you mean: "
                          (string/join ", " matches)
                          "?")}
             (fetch-license! (first matches) (conj (set seen) license-key)))
-          {:error "No such License."})))
+          {:error "No such License."}))
     {:error "Could not load License."}))

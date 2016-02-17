@@ -1,4 +1,4 @@
-(defproject lein-license "0.1.6"
+(defproject lein-license "0.1.7-SNAPSHOT"
   :description "Project-Level License Management."
   :url "https://github.com/xsc/lein-license"
   :license {:name "MIT License"

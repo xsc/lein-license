@@ -5,8 +5,8 @@
             :url "http://opensource.org/licenses/MIT"
             :key "mit"
             :year 2015}
-  :dependencies [[org.yaml/snakeyaml "1.15"]
-                 [rewrite-clj "0.4.12"
+  :dependencies [[org.yaml/snakeyaml "1.17"]
+                 [rewrite-clj "0.5.0"
                   :exclusions [org.clojure/clojure]]]
   :eval-in :leiningen
   :pedantic? :abort)

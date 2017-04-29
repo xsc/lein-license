@@ -1,5 +1,6 @@
 (ns leiningen.license.fetch
   (:require [leiningen.license.list :refer [match-licenses]]
+            [leiningen.license.socket :refer [socket-stream]]
             [leiningen.core.main :as main]
             [clojure.string :as string])
   (:import [org.yaml.snakeyaml Yaml]
@@ -87,7 +88,7 @@
           (main/debug "reading raw license data from:" urls)
           (some-> (some
                     #(try
-                       (slurp % :encoding "UTF-8")
+                       (slurp (socket-stream %) :encoding "UTF-8")
                        (catch java.io.FileNotFoundException _))
                     urls)
                   (parse-license license-key)))

@@ -1,5 +1,6 @@
 (ns leiningen.license.list
-  (:require [leiningen.core.main :as main]
+  (:require [leiningen.license.socket :refer [socket-stream]]
+            [leiningen.core.main :as main]
             [cheshire.core :as json]
             [clojure.java.io :as io]))
 
@@ -10,7 +11,7 @@
 
 (defn- query-licenses!
   []
-  (->> (-> (slurp *api-url* :encoding "UTF-8")
+  (->> (-> (slurp (socket-stream *api-url*) :encoding "UTF-8")
            (json/parse-string keyword))
        (keep
          (fn [{:keys [^String name]}]

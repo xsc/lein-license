@@ -7,6 +7,7 @@
             :year 2015}
   :dependencies [[org.yaml/snakeyaml "1.17"]
                  [rewrite-clj "0.5.0"
-                  :exclusions [org.clojure/clojure]]]
+                  :exclusions [org.clojure/clojure]]
+                 [cheshire "5.8.0"]]
   :eval-in :leiningen
   :pedantic? :abort)

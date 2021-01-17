@@ -55,18 +55,24 @@
       (.get java.util.Calendar/YEAR)))
 
 (defn- assoc-license
-  [zloc {:keys [title source key]}]
+  [zloc {:keys [title spdx-id source key]}]
   (-> zloc
-      (assoc-indented :name title)
-      (assoc-indented :url (or source "none"))
+      (assoc-indented :name (or spdx-id title))
+      (cond-> spdx-id (assoc-indented :comment title))
+      (assoc-indented :url (or source ""))
       (assoc-non-existing :year (current-year))
       (assoc-indented :key (name key))))
+
+(defn- move-to-insertion-point
+  [zloc]
+  (-> (or (some #(z/find-value zloc %) [:url :description])
+          (z/right zloc))
+      z/right))
 
 (defn- insert-license
   [zloc license]
   (-> zloc
-      (z/right)
-      (z/right)
+      (move-to-insertion-point)
       (z/insert-right {})
       (z/right)
       (assoc-license license)

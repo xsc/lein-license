@@ -10,6 +10,9 @@
 (def ^:dynamic *raw-prefix*
   "https://raw.githubusercontent.com/github/choosealicense.com/gh-pages/_licenses/")
 
+(def ^:private +license-base-url+
+  "https://choosealicense.com/licenses/")
+
 (defn- raw-urls
   "Generate URL to raw license data."
   [license-key]
@@ -73,9 +76,11 @@
     (let [{:keys [value error]} (parse-license-yaml info license-key)]
       (if error
         {:error error}
-        (assoc value
-               :text (normalize-template template)
-               :key  license-key)))))
+        (-> value
+            (merge
+              {:text (normalize-template template)
+               :key  license-key})
+            (update :source #(or % (str +license-base-url+ license-key))))))))
 
 ;; ## License I/O
 
